@@ -1,0 +1,28 @@
+{
+  "name": "moveis",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sqlite": "^4.0.23",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "@sucrase/jest-plugin": "^2.2.0",
+    "eslint": "^8.4.1",
+    "factory-girl": "^5.0.4",
+    "faker": "^5.5.3",
+    "jest": "^27.4.5",
+    "nodemon": "^2.0.15",
+    "sucrase": "^3.20.3",
+    "supertest": "^6.1.6"
+  },
+  "scripts": {
+    "dev": "sucrase-node src/server.js",
+    "init-db": "sucrase-node src/database/init.js",
+    "build": "sucrase ./src -d ./dist --transforms imports",
+    "start": "node dist/server.js",
+    "test": "jest"
+  }
+}
