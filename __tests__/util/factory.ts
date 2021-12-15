@@ -1,8 +1,12 @@
 import factory from "factory-girl";
 import faker from "faker";
-import { User } from "../../src/database/init";
+import { UserEntity } from "../database/entities/userEntity";
+import { getRepository } from "typeorm";
+import { connection } from '../database/index'
 
-factory.define("User", User, {
+const c = getRepository(UserEntity, "tests");
+
+factory.define("User", c, {
 	name: faker.name.findName(),
 	password: "123456",
 	telephone: faker.phone.phoneNumber(),
