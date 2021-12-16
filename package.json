@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "class-transformer": "^0.5.1",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
@@ -15,6 +17,8 @@
     "@types/faker": "^5.5.9",
     "@types/sqlite3": "^3.1.7",
     "@types/supertest": "^2.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
     "eslint": "^8.4.1",
     "factory-girl": "^5.0.4",
     "faker": "^5.5.3",
@@ -33,6 +37,6 @@
     "build": "tsc ./src",
     "start": "node dist/server.js",
     "testdb": "ts-node __tests__/database/init.ts",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   }
 }
