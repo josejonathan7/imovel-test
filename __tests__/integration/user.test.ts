@@ -58,7 +58,7 @@ describe("#Crud for user", () => {
 			};
 
 			const response = await request(app).post("/create/user").send(data);
-
+			console.log("espionando o data: ", data);
 			expect(response.status).toBe(200);
 			expect(response.body).toMatchObject({data: responseData});
 		});
