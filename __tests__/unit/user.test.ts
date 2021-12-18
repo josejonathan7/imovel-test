@@ -71,7 +71,9 @@ describe("#Test user unit functions", () => {
 
 		const createUSer = await user.createUSer(data);
 
-		const updateUSer = await user.updateUser({...data}, createUSer.id);
+		const id = createUSer.id;
+
+		const updateUSer = await user.updateUser({...data}, id);
 
 		expect(updateUSer).toBe(true);
 	});

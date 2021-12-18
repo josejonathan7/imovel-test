@@ -1,4 +1,4 @@
-import { createConnection, Connection  } from "typeorm";
+import { createConnection, Connection, getConnection  } from "typeorm";
 import { sign } from "jsonwebtoken";
 import { hash, compare } from "bcrypt";
 import { UserRepositorie } from "../repositories/userRepositorie";
@@ -49,11 +49,9 @@ class UserService {
 	}
 
 	async updateUser({ name, email, address, password, telephone, admin =false }: userData, id:string) {
-		const userEntity = await this.connection.then(con => con.getCustomRepository(UserRepositorie));
-
+		const userRepositorie = await this.connection.then(con => con.getCustomRepository(UserRepositorie));
 		const passwordHash= await hash(password, 8);
-
-		const updatedUSer = await userEntity.update(id, {
+		const updatedUSer = await userRepositorie.update(id, {
 			name,
 			email,
 			address,
@@ -63,7 +61,7 @@ class UserService {
 		});
 
 		const affected: number = updatedUSer.affected ? updatedUSer.affected : 0;
-
+		console.log(updatedUSer);
 		if(affected === 0) {
 			throw new Error("Not found a record to update");
 		}
@@ -116,14 +114,9 @@ class UserService {
 	}
 
 	async load() {
-		try {
-			const connection: Connection = await createConnection(this.connectionName);
+		const connection: Connection = await createConnection(this.connectionName).then(con => con).catch(()=> getConnection(this.connectionName));
 
-			return connection;
-
-		} catch (error) {
-			throw new Error("Connection with database failed");
-		}
+		return connection;
 	}
 }
 

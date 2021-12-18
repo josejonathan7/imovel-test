@@ -10,7 +10,8 @@ routes.get("/home", (req, res) => {
 	res.status(200).send();
 });
 
-
+//user routes
 routes.post("/create/user", userController.createUser);
+routes.put("/update/user/:id", userController.updateUser);
 
 export { routes };
