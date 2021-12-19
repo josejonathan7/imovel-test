@@ -75,6 +75,7 @@ class UserController {
 
 			return res.status(200).send();
 
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			return res.status(400).json({ message: error.message });
 		}
@@ -95,6 +96,8 @@ class UserController {
 			const token = await userService.login(name, password);
 
 			return res.status(200).json({ token });
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			return res.status(401).json({ message: error.message });
 		}

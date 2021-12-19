@@ -1,16 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { Database } = require("sqlite3");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-
 module.exports = [
 	{
 		"name": "tests",
 		"type": "sqlite",
 		"database":  "database.sqlite",
 		"entities": ["./src/entitys/*.ts"],
-		"migrations": [ "./src/database/migrations/*.ts" ],
+		"migrations": [ "./src/database/migrationsSqlite/*.ts" ],
 		"cli":{
-			"migrationsDir": "./src/database/migrations/",
+			"migrationsDir": "./src/database/migrationsSqlite/",
 			"entitiesDir": "./src/entitys"
 		}
 

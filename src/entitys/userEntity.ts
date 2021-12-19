@@ -20,12 +20,13 @@ class UserEntity {
 	@Exclude()
 	@Column({
 		type: "varchar",
-		length: 40
+		length: 65
 	})
 		password!: string;
 
 	@Column({
-		type: "varchar"
+		type: "varchar",
+		length: 15
 	})
 		telephone!: string;
 

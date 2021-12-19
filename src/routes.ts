@@ -4,6 +4,7 @@ import { UserController } from "./controllers/userController";
 const routes = Router();
 const userController = new UserController();
 
+routes.get("/home", (req, res) => res.status(200).send("ok"));
 //user routes
 routes.post("/user", userController.getUser);
 routes.post("/create/user", userController.createUser);

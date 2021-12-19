@@ -153,7 +153,9 @@ module.exports = {
 
 	// The glob patterns Jest uses to detect test files
 	testMatch: [
-		"**/__tests__/**/*.test.ts"
+		"**/__tests__/**/*.test.ts",
+		"!**/__tests__/unit/user.test.ts",
+		"!**/__tests__/integration/user.test.ts",
 	],
 	preset: "ts-jest",
 };
