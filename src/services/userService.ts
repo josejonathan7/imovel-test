@@ -61,7 +61,7 @@ class UserService {
 		});
 
 		const affected: number = updatedUSer.affected ? updatedUSer.affected : 0;
-		console.log(updatedUSer);
+
 		if(affected === 0) {
 			throw new Error("Not found a record to update");
 		}

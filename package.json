@@ -41,6 +41,6 @@
     "build": "tsc ./src",
     "start": "node dist/server.js",
     "testdb": "ts-node __tests__/database/init.ts",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest --verbose"
   }
 }

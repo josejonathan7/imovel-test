@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterEach } from "@jest/globals";
+import { describe, it, expect, beforeAll, afterEach, afterAll } from "@jest/globals";
 import faker from "faker";
 import { getCustomRepository } from "typeorm";
 import { verify } from "jsonwebtoken";
@@ -7,9 +7,35 @@ import { UserRepositorie } from "../../src/repositories/userRepositorie";
 
 describe("#Test user unit functions", () => {
 	let user: UserService;
+	let data: {
+		name: string;
+		password: string;
+		telephone: string;
+		email: string;
+		address: string;
+		admin?: boolean;
+	};
 
 	beforeAll(() => {
 		user = new UserService();
+
+		data = {
+			name: faker.name.findName(),
+			password: faker.internet.password(),
+			telephone: faker.phone.phoneNumber(),
+			email: faker.internet.email(),
+			address: faker.address.streetAddress()
+		};
+	});
+
+	afterAll(() => {
+		data = {
+			name: "",
+			password: "",
+			telephone: "",
+			email: "",
+			address: ""
+		};
 	});
 
 	afterEach(async () => {
@@ -19,14 +45,6 @@ describe("#Test user unit functions", () => {
 	});
 
 	it("->Should create user", async () => {
-		const data = {
-			name: faker.name.findName(),
-			password: faker.internet.password(),
-			telephone: faker.phone.phoneNumber(),
-			email: faker.internet.email(),
-			address: faker.address.streetAddress()
-		};
-
 		const response = {
 			name: data.name,
 			telephone: data.telephone,
@@ -40,14 +58,6 @@ describe("#Test user unit functions", () => {
 	});
 
 	it("->Should not create existing user", async () => {
-		const data = {
-			name: faker.name.findName(),
-			password: faker.internet.password(),
-			telephone: faker.phone.phoneNumber(),
-			email: faker.internet.email(),
-			address: faker.address.streetAddress()
-		};
-
 		await user.createUSer(data);
 
 		try {
@@ -60,39 +70,31 @@ describe("#Test user unit functions", () => {
 	});
 
 	it("->Should update user", async () => {
-		const data = {
-			name: faker.name.findName(),
-			email: faker.internet.email(),
-			address: faker.address.streetAddress(),
-			password: faker.internet.password(),
-			telephone: faker.phone.phoneNumber(),
+		const dataTest = {
+			...data,
 			admin: false
 		};
 
-		const createUSer = await user.createUSer(data);
+		const createUSer = await user.createUSer(dataTest);
 
 		const id = createUSer.id;
 
-		const updateUSer = await user.updateUser({...data}, id);
+		const updateUSer = await user.updateUser({...dataTest}, id);
 
 		expect(updateUSer).toBe(true);
 	});
 
 	it("->Should not update user with invalid Id", async () => {
-		const data = {
-			name: faker.name.findName(),
-			email: faker.internet.email(),
-			address: faker.address.streetAddress(),
-			password: faker.internet.password(),
-			telephone: faker.phone.phoneNumber(),
+		const dataTest = {
+			...data,
 			admin: false
 		};
 
-		await user.createUSer(data);
+		await user.createUSer(dataTest);
 
 		try {
 
-			await user.updateUser({...data}, "createUSer.id)");
+			await user.updateUser({...dataTest}, "createUSer.id)");
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
@@ -101,16 +103,12 @@ describe("#Test user unit functions", () => {
 	});
 
 	it("->Should delete user", async () => {
-		const data = {
-			name: faker.name.findName(),
-			email: faker.internet.email(),
-			address: faker.address.streetAddress(),
-			password: faker.internet.password(),
-			telephone: faker.phone.phoneNumber(),
+		const dataTest = {
+			...data,
 			admin: false
 		};
 
-		const createUSer = await user.createUSer(data);
+		const createUSer = await user.createUSer(dataTest);
 
 		const deleteUSer = await user.deleteUser(createUSer.id);
 
@@ -118,17 +116,12 @@ describe("#Test user unit functions", () => {
 	});
 
 	it("->Should not delete user with inexisting Id", async () => {
-		const data = {
-			name: faker.name.findName(),
-			email: faker.internet.email(),
-			address: faker.address.streetAddress(),
-			password: faker.internet.password(),
-			telephone: faker.phone.phoneNumber(),
+		const dataTest = {
+			...data,
 			admin: false
 		};
 
-		await user.createUSer(data);
-
+		await user.createUSer(dataTest);
 
 		try {
 
@@ -141,18 +134,14 @@ describe("#Test user unit functions", () => {
 	});
 
 	it("->Should get user data with JWT token ", async() => {
-		const data = {
-			name: faker.name.findName(),
-			email: faker.internet.email(),
-			address: faker.address.streetAddress(),
-			password: faker.internet.password(),
-			telephone: faker.phone.phoneNumber(),
+		const dataTest = {
+			...data,
 			admin: false
 		};
 
-		await user.createUSer(data);
+		await user.createUSer(dataTest);
 
-		const loginUSer = await user.login(data.name, data.password);
+		const loginUSer = await user.login(dataTest.name, dataTest.password);
 
 		const token = verify(loginUSer, `${process.env.SECRET_KEY}`);
 
@@ -161,19 +150,15 @@ describe("#Test user unit functions", () => {
 	});
 
 	it("->Should not get user data with invalid login", async () => {
-		const data = {
-			name: faker.name.findName(),
-			email: faker.internet.email(),
-			address: faker.address.streetAddress(),
-			password: faker.internet.password(),
-			telephone: faker.phone.phoneNumber(),
+		const dataTest = {
+			...data,
 			admin: false
 		};
 
-		await user.createUSer(data);
+		await user.createUSer(dataTest);
 
 		try {
-			await user.login("data.name", data.password);
+			await user.login("data.name", dataTest.password);
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			expect(error.message).toBe("Email/Password not found");
@@ -181,19 +166,15 @@ describe("#Test user unit functions", () => {
 	});
 
 	it("->Should not get user data with invalid password", async () => {
-		const data = {
-			name: faker.name.findName(),
-			email: faker.internet.email(),
-			address: faker.address.streetAddress(),
-			password: faker.internet.password(),
-			telephone: faker.phone.phoneNumber(),
+		const dataTest = {
+			...data,
 			admin: false
 		};
 
-		await user.createUSer(data);
+		await user.createUSer(dataTest);
 
 		try {
-			await user.login(data.name, "data.password");
+			await user.login(dataTest.name, "data.password");
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			expect(error.message).toBe("Email/Password not found");
