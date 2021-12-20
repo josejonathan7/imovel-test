@@ -137,7 +137,17 @@ describe("#Test product unit functions", () => {
 		expect(listProducts[0]).toMatchObject({...data, category: {}});
 	});
 
-	it("->Should get all product where category is defined", async () => {
+	it("->Should return error message with not have products to list", async() => {
+		try {
+			await product.getAllProducts();
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
+			expect(error.message).toBe("Not exists products registers");
+		}
+	});
+
+	it("->Should get all products where category is defined", async () => {
 		await product.createProduct(data);
 
 		const productTwo = {
@@ -163,5 +173,15 @@ describe("#Test product unit functions", () => {
 				name: "armario"
 			}
 		});
+	});
+
+	it("->Should not get products where category is defined", async () => {
+		try {
+			await product.getProductByCategory("quarto");
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
+			expect(error.message).toBe("Not have products in the category search");
+		}
 	});
 });

@@ -97,8 +97,8 @@ export class ProductService {
 
 		const productList = await productRepositorie.find();
 
-		if(!productList) {
-			throw new Error("Not have products registers");
+		if(productList.length === 0) {
+			throw new Error("Not exists products registers");
 		}
 
 		return instanceToPlain(productList);
@@ -117,7 +117,7 @@ export class ProductService {
 			}
 		});
 
-		if(!products) {
+		if(products.length === 0) {
 			throw new Error("Not have products in the category search");
 		}
 
