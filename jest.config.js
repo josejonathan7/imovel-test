@@ -156,6 +156,7 @@ module.exports = {
 		"**/__tests__/**/*.test.ts",
 		"!**/__tests__/unit/user.test.ts",
 		"!**/__tests__/integration/user.test.ts",
+		"!**/__tests__/unit/product.test.ts"
 	],
 	preset: "ts-jest",
 };

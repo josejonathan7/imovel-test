@@ -47,8 +47,12 @@ class UserController {
 				admin = admin === "true" || admin === true ? true : false;
 			}
 
-			if(name === "" || password === "" || telephone === "" || email === "" || address === "" || id === ""){
+			if(name === "" || password === "" || telephone === "" || email === "" || address === ""){
 				throw new Error("All information must be filled");
+			}
+
+			if(id === "" || id.length !== 36) {
+				throw new Error("Id is obrigatory for operation");
 			}
 
 			await userService.updateUser({name, email, address, password, telephone, admin}, id);
@@ -67,7 +71,7 @@ class UserController {
 
 		try {
 
-			if(id === "" || id.length < 30) {
+			if(id === "" || id.length !== 36) {
 				throw new Error("Id is obrigatory for operation");
 			}
 
