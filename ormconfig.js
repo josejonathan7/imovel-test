@@ -3,6 +3,7 @@ module.exports = [
 		"name": "tests",
 		"type": "sqlite",
 		"database":  "database.sqlite",
+		"maxQueryExecutionTime": 20000,
 		"entities": ["./src/entitys/*.ts"],
 		"migrations": [ "./src/database/migrationsSqlite/*.ts" ],
 		"cli":{

@@ -22,7 +22,7 @@ export class ProductController {
 				throw new Error("All information must be filled");
 			}
 
-			if(category !== "armario" && category !== "quarto") {
+			if(category !== "cozinha" && category !== "quarto" && category !== "sala" && category !== "banheiro" && category !== "jardim") {
 				throw new Error("Invalid product category");
 			}
 
@@ -57,7 +57,7 @@ export class ProductController {
 				throw new Error("Id is obrigatory for operation");
 			}
 
-			if(category !== "armario" && category !== "quarto") {
+			if(category !== "cozinha" && category !== "quarto" && category !== "sala" && category !== "banheiro" && category !== "jardim") {
 				throw new Error("Invalid product category");
 			}
 
@@ -118,6 +118,11 @@ export class ProductController {
 		const search = req.query.search ? String(req.query.search) : "";
 
 		try {
+
+			if(category !== "cozinha" && category !== "quarto" && category !== "sala" && category !== "banheiro" && category !== "jardim") {
+				throw new Error("Invalid product category");
+			}
+
 			if(search !== "") {
 				const searchProduct = await productService.getProductsByLikeCategory(search, category);
 

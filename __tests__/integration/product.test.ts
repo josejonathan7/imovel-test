@@ -20,7 +20,7 @@ describe("#Crud for products", () => {
 			image: faker.image.transport(),
 			description: faker.commerce.productDescription(),
 			price: Number(faker.commerce.price()),
-			category: "armario"
+			category: "cozinha"
 		};
 	});
 
@@ -68,7 +68,7 @@ describe("#Crud for products", () => {
 	it("->Should not create product with invalid category", async () => {
 		const productFake = {
 			...data,
-			category: "banheiro"
+			category: "quintal"
 		};
 
 		const createUser = await request(app).post("/create/product").send(productFake);
@@ -143,7 +143,7 @@ describe("#Crud for products", () => {
 			image: faker.image.transport(),
 			description: faker.commerce.productDescription(),
 			price: Number(faker.commerce.price()),
-			category: "banheiro"
+			category: "garagem"
 		};
 
 		const updateProduct = await request(app).put(`/update/product/${id}`).send(updatedData);
@@ -252,9 +252,16 @@ describe("#Crud for products", () => {
 
 		await request(app).post("/create/product").send(dataThree);
 
-		const productCategory = await request(app).get("/products/category/?category=armario&&search=ga");
+		const productCategory = await request(app).get("/products/category/?category=cozinha&&search=ga");
 
 		expect(productCategory.status).toBe(200);
 		expect(productCategory.body.data[0]).toMatchObject({...dataThree, category: {}});
+	});
+
+	it("->Should not get product by category with invalid category", async () => {
+		const getProduct = await request(app).get("/products/category/?category=garagem");
+
+		expect(getProduct.status).toBe(400);
+		expect(getProduct.body.message).toBe("Invalid product category");
 	});
 });

@@ -14,8 +14,11 @@ interface ProductType {
 export class ProductService {
 	connectionName: string;
 	connection: Promise<Connection>;
-	wardrobe: string;
 	bedroom: string;
+	livingRoom: string;
+	kitchen: string;
+	yard: string;
+	bathroom: string;
 
 	constructor() {
 		dotenv.config({
@@ -25,8 +28,11 @@ export class ProductService {
 		this.connectionName = process.env.NODE_ENV === "test" ? "tests" : "";
 		this.connection = Promise.resolve(this.load()) as Promise<Connection>;
 
-		this.wardrobe = process.env.WARDROBE as string;
 		this.bedroom = process.env.BEDROOM as string;
+		this.livingRoom = process.env.LIVING_ROOM as string;
+		this.kitchen = process.env.KITCHEN as string;
+		this.yard = process.env.YARD as string;
+		this.bathroom = process.env.BATHROOM as string;
 	}
 
 	async createProduct(data: ProductType) {
@@ -40,7 +46,7 @@ export class ProductService {
 			throw new Error("This product is already registered");
 		}
 
-		const categoryId = data.category === "armario" ? this.wardrobe : this.bedroom;
+		const categoryId = data.category === "banheiro" ? this.bathroom : data.category ===  "cozinha" ? this.kitchen : data.category === "sala" ? this.livingRoom : data.category ===  "jardim" ? this.yard : this.bedroom;
 
 		const product = productRepositorie.create({
 			...data,
@@ -57,7 +63,7 @@ export class ProductService {
 	async updateProduct({ name, image, description, price, category}: ProductType, id: string) {
 		const productRepositorie = await this.connection.then(con => con.getCustomRepository(ProductRepositorie));
 
-		const categoryId = category === "armario" ? this.wardrobe : this.bedroom;
+		const categoryId = category === "banheiro" ? this.bathroom : category ===  "cozinha" ? this.kitchen : category === "sala" ? this.livingRoom : category ===  "jardim" ? this.yard : this.bedroom;
 
 		const updateProduct = await productRepositorie.update(id, {
 			name,
@@ -130,7 +136,7 @@ export class ProductService {
 	async getProductByCategory(category: string) {
 		const productRepositorie = await this.connection.then(con => con.getCustomRepository(ProductRepositorie));
 
-		const categoryId = category === "quarto" ? this.bedroom : category === "armario" ? this.wardrobe : "cozinha";
+		const categoryId =  category === "banheiro" ? this.bathroom : category ===  "cozinha" ? this.kitchen : category === "sala" ? this.livingRoom : category ===  "jardim" ? this.yard : this.bedroom;
 
 		const products = await productRepositorie.find({
 			where: {
@@ -153,7 +159,8 @@ export class ProductService {
 
 	async getProductsByLikeCategory(search: string, category: string) {
 		const productRepositorie = await this.connection.then(con => con.getCustomRepository(ProductRepositorie));
-		const categoryId = category === "quarto" ? this.bedroom : category === "armario" ? this.wardrobe : "";
+
+		const categoryId = category === "banheiro" ? this.bathroom : category ===  "cozinha" ? this.kitchen : category === "sala" ? this.livingRoom : category ===  "jardim" ? this.yard : this.bedroom;
 
 		const findQueryCategory = await productRepositorie.find({
 			where: {

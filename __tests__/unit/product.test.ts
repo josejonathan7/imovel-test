@@ -22,7 +22,7 @@ describe("#Test product unit functions", () => {
 			image: faker.image.transport(),
 			description: faker.commerce.productDescription(),
 			price: Number(faker.commerce.price()),
-			category: "armario"
+			category: "jardim"
 		};
 	});
 
@@ -158,17 +158,17 @@ describe("#Test product unit functions", () => {
 
 		await product.createProduct(productTwo);
 
-		const getProductByCategoryResponse = await product.getProductByCategory("armario");
+		const getProductByCategoryResponse = await product.getProductByCategory("jardim");
 
 		expect(getProductByCategoryResponse[0]).toMatchObject({
 			...data,
 			category: {
-				name: "armario"
+				name: "jardim"
 			}
 		});
 	});
 
-	it("->Should not get products where category is defined", async () => {
+	it("->Should not get products where category is invalid", async () => {
 		try {
 			await product.getProductByCategory("quarto");
 
@@ -217,7 +217,9 @@ describe("#Test product unit functions", () => {
 
 		const products = await product.getProductsByLikeCategory("lad", "quarto");
 
-		expect(products).toMatchObject([{...productTwo, category: {}}]);
+		expect(products).toMatchObject([{...productTwo, category: {
+			name: "quarto"
+		}}]);
 	});
 
 	it("->Should not get product inexistent in Like query category", async () => {

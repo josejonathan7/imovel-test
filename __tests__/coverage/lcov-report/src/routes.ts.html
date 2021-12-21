@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -87,54 +87,54 @@
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import {Router } from "express";</span></span></span>
-<span class="cstat-no" title="statement not covered" >import { ProductController } from "./controllers/productController";</span>
-<span class="cstat-no" title="statement not covered" >import { UserController } from "./controllers/userController";</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >const routes = Router();</span>
-<span class="cstat-no" title="statement not covered" >const userController = new UserController();</span>
-<span class="cstat-no" title="statement not covered" >const productController = new ProductController();</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >routes.get("/home", (req, res) =&gt; res.status(200).send("ok"));</span>
-<span class="cstat-no" title="statement not covered" >//user routes</span>
-<span class="cstat-no" title="statement not covered" >routes.post("/user", userController.getUser);</span>
-<span class="cstat-no" title="statement not covered" >routes.post("/create/user", userController.createUser);</span>
-<span class="cstat-no" title="statement not covered" >routes.put("/update/user/:id", userController.updateUser);</span>
-<span class="cstat-no" title="statement not covered" >routes.delete("/delete/user/:id", userController.deleteUser);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >//products routes</span>
-<span class="cstat-no" title="statement not covered" >routes.post("/create/product", productController.createProduct);</span>
-<span class="cstat-no" title="statement not covered" >routes.put("/update/product/:id", productController.updateProduct);</span>
-<span class="cstat-no" title="statement not covered" >routes.delete("/delete/product/:id", productController.deleteProduct);</span>
-<span class="cstat-no" title="statement not covered" >routes.get("/products/", productController.getAllProducts);</span>
-<span class="cstat-no" title="statement not covered" >routes.get("/products/category/", productController.getProductByCategory);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >export { routes };</span>
+<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Router } from "express";
+import { ProductController } from "./controllers/productController";
+import { UserController } from "./controllers/userController";
+&nbsp;
+const routes = Router();
+const userController = new UserController();
+const productController = new ProductController();
+&nbsp;
+routes.get("/home", (req, res) =&gt; res.status(200).send("ok"));
+//user routes
+routes.post("/user", userController.getUser);
+routes.post("/create/user", userController.createUser);
+routes.put("/update/user/:id", userController.updateUser);
+routes.delete("/delete/user/:id", userController.deleteUser);
+&nbsp;
+&nbsp;
+//products routes
+routes.post("/create/product", productController.createProduct);
+routes.put("/update/product/:id", productController.updateProduct);
+routes.delete("/delete/product/:id", productController.deleteProduct);
+routes.get("/products/", productController.getAllProducts);
+routes.get("/products/category/", productController.getProductByCategory);
+&nbsp;
+export { routes };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -142,7 +142,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
-                at Mon Dec 20 2021 22:07:08 GMT-0300 (Horário Padrão de Brasília)
+                at Tue Dec 21 2021 14:30:31 GMT-0300 (Horário Padrão de Brasília)
             </div>
         </div>
         <script src="../prettify.js"></script>
