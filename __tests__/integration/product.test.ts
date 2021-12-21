@@ -187,8 +187,74 @@ describe("#Crud for products", () => {
 
 		await request(app).post("/create/product").send(dataThree);
 
-		const getProducts = await request(app).get("/products");
+		const getProducts = await request(app).get("/products/");
 
 		expect(getProducts.status).toBe(200);
+		expect(getProducts.body.data).toHaveLength(3);
+	});
+
+	it("->Should get all product by like consult", async () => {
+		await request(app).post("/create/product").send(data);
+
+		const dataTwo = {
+			...data,
+			name: "Mega Stock",
+			category: "quarto"
+		};
+
+		await request(app).post("/create/product").send(dataTwo);
+
+		const getProducts = await request(app).get("/products/?search=sto");
+
+		expect(getProducts.status).toBe(200);
+		expect(getProducts.body.data[0]).toMatchObject({...dataTwo, category: {}});
+	});
+
+	it("->Should get product by category", async () => {
+		await request(app).post("/create/product").send(data);
+
+		const dataTwo = {
+			...data,
+			name: faker.commerce.productName(),
+			category: "quarto"
+		};
+
+		await request(app).post("/create/product").send(dataTwo);
+
+		const dataThree = {
+			...data,
+			name: faker.commerce.productName(),
+		};
+
+		await request(app).post("/create/product").send(dataThree);
+
+		const productCategory = await request(app).get("/products/category/?category=quarto");
+
+		expect(productCategory.status).toBe(200);
+		expect(productCategory.body.data[0]).toMatchObject({...dataTwo, category: {}});
+	});
+
+	it("->Should get product by category with like consult", async () => {
+		await request(app).post("/create/product").send(data);
+
+		const dataTwo = {
+			...data,
+			name: faker.commerce.productName(),
+			category: "quarto"
+		};
+
+		await request(app).post("/create/product").send(dataTwo);
+
+		const dataThree = {
+			...data,
+			name: "mega stock"
+		};
+
+		await request(app).post("/create/product").send(dataThree);
+
+		const productCategory = await request(app).get("/products/category/?category=armario&&search=ga");
+
+		expect(productCategory.status).toBe(200);
+		expect(productCategory.body.data[0]).toMatchObject({...dataThree, category: {}});
 	});
 });

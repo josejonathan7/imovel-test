@@ -134,7 +134,7 @@ describe("#Test product unit functions", () => {
 
 		const listProducts = await product.getAllProducts();
 
-		expect(listProducts[0]).toMatchObject({...data, category: {}});
+		expect(listProducts).toHaveLength(3);
 	});
 
 	it("->Should return error message with not have products to list", async() => {
@@ -158,13 +158,6 @@ describe("#Test product unit functions", () => {
 
 		await product.createProduct(productTwo);
 
-		const productThree = {
-			...data,
-			name: faker.commerce.productName()
-		};
-
-		await product.createProduct(productThree);
-
 		const getProductByCategoryResponse = await product.getProductByCategory("armario");
 
 		expect(getProductByCategoryResponse[0]).toMatchObject({
@@ -182,6 +175,58 @@ describe("#Test product unit functions", () => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			expect(error.message).toBe("Not have products in the category search");
+		}
+	});
+
+	it("->Should get product by search query", async() => {
+		await product.createProduct(data);
+
+		const productTwo = {
+			...data,
+			name: "geladao",
+			category: "quarto"
+		};
+
+		await product.createProduct(productTwo);
+
+		const products = await product.getAllProductsByLike("la");
+
+		expect(products).toMatchObject([{...productTwo, category: {}}]);
+	});
+
+	it("->Should not get product inexistent in Like query", async () => {
+		try {
+			await product.getAllProductsByLike("la");
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
+			expect(error.message).toBe("Not result by search");
+		}
+	});
+
+	it("->Should get product by search query category", async() => {
+		await product.createProduct(data);
+
+		const productTwo = {
+			...data,
+			name: "geladao",
+			category: "quarto"
+		};
+
+		await product.createProduct(productTwo);
+
+		const products = await product.getProductsByLikeCategory("lad", "quarto");
+
+		expect(products).toMatchObject([{...productTwo, category: {}}]);
+	});
+
+	it("->Should not get product inexistent in Like query category", async () => {
+		try {
+			await product.getProductsByLikeCategory("ladasdasd", "quarto");
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
+			expect(error.message).toBe("Not register in consult by category");
 		}
 	});
 });

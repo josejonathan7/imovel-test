@@ -93,8 +93,15 @@ export class ProductController {
 
 	async getAllProducts(req: Request, res: Response) {
 		const productService = new ProductService();
+		const search = req.query.search ? String(req.query.search) : "";
 
 		try {
+			if(search !== ""){
+				const searchContent = await productService.getAllProductsByLike(search.trim().toLowerCase());
+
+				return res.status(200).json({ data: searchContent });
+			}
+
 			const products = await productService.getAllProducts();
 
 			return res.status(200).json({ data: products });
@@ -106,8 +113,23 @@ export class ProductController {
 	}
 
 	async getProductByCategory(req: Request, res: Response) {
+		const productService = new ProductService();
+		const category = String(req.query.category);
+		const search = req.query.search ? String(req.query.search) : "";
 
+		try {
+			if(search !== "") {
+				const searchProduct = await productService.getProductsByLikeCategory(search, category);
 
-		return res.status(200).send();
+				return res.status(200).json({ data: searchProduct });
+			}
+
+			const productsByCategory = await productService.getProductByCategory(category);
+
+			return res.status(200).json({ data: productsByCategory });
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
+			return res.status(400).json({ message: error.message });
+		}
 	}
 }

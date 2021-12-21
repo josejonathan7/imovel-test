@@ -1,4 +1,4 @@
-import { Connection, createConnection, getConnection } from "typeorm";
+import { Connection, createConnection, getConnection, Like } from "typeorm";
 import dotenv from "dotenv";
 import { instanceToPlain } from "class-transformer";
 import { ProductRepositorie } from "../repositories/productRepositorie";
@@ -95,13 +95,36 @@ export class ProductService {
 	async getAllProducts() {
 		const productRepositorie = await this.connection.then(con => con.getCustomRepository(ProductRepositorie));
 
-		const productList = await productRepositorie.find();
+		const productList = await productRepositorie.find({
+			order: {
+				name: "ASC"
+			}
+		});
 
 		if(productList.length === 0) {
 			throw new Error("Not exists products registers");
 		}
 
 		return instanceToPlain(productList);
+	}
+
+	async getAllProductsByLike(search: string) {
+		const productRepositorie = await this.connection.then(con => con.getCustomRepository(ProductRepositorie));
+
+		const findLike = await productRepositorie.find({
+			where: {
+				name: Like(`%${search}%`)
+			},
+			order: {
+				name: "ASC"
+			}
+		});
+
+		if(findLike.length === 0) {
+			throw new Error("Not result by search");
+		}
+
+		return instanceToPlain(findLike);
 	}
 
 	async getProductByCategory(category: string) {
@@ -114,6 +137,9 @@ export class ProductService {
 				category: {
 					id: categoryId
 				}
+			},
+			order: {
+				name: "ASC"
 			}
 		});
 
@@ -123,6 +149,29 @@ export class ProductService {
 
 		return instanceToPlain(products);
 
+	}
+
+	async getProductsByLikeCategory(search: string, category: string) {
+		const productRepositorie = await this.connection.then(con => con.getCustomRepository(ProductRepositorie));
+		const categoryId = category === "quarto" ? this.bedroom : category === "armario" ? this.wardrobe : "";
+
+		const findQueryCategory = await productRepositorie.find({
+			where: {
+				name: Like(`%${search}%`),
+				category: {
+					id: categoryId
+				}
+			},
+			order: {
+				name: "ASC"
+			}
+		});
+
+		if(findQueryCategory.length === 0) {
+			throw new Error("Not register in consult by category");
+		}
+
+		return instanceToPlain(findQueryCategory);
 	}
 
 	async load() {

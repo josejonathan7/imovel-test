@@ -18,7 +18,7 @@ routes.delete("/delete/user/:id", userController.deleteUser);
 routes.post("/create/product", productController.createProduct);
 routes.put("/update/product/:id", productController.updateProduct);
 routes.delete("/delete/product/:id", productController.deleteProduct);
-routes.get("/products", productController.getAllProducts);
-routes.get("/products/category", productController.getProductByCategory);
+routes.get("/products/", productController.getAllProducts);
+routes.get("/products/category/", productController.getProductByCategory);
 
 export { routes };
