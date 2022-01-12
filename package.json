@@ -36,11 +36,12 @@
     "typescript": "^4.5.4"
   },
   "scripts": {
+	"predev": "typeorm migration:run",
     "dev": "ts-node src/server.ts",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "build": "tsc ./src",
     "start": "node dist/server.js",
-    "testdb": "ts-node __tests__/database/init.ts",
-    "test": "NODE_ENV=test jest --verbose"
+    "pretest": "typeorm -c tests migration:run",
+    "test": "NODE_ENV=test jest --verbose --runInBand"
   }
 }
