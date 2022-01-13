@@ -7,16 +7,16 @@ class UserController {
 		let { name, password, telephone, email, address } = req.body;
 		const userService = new UserService();
 
-		name = name.trim();
-		password = password.trim();
-		telephone = telephone.trim();
-		email= email.trim();
-		address = address.trim();
-
 		try {
 			if(name === "" || password === "" || telephone === "" || email === "" || address === ""){
 				throw new Error("All information must be filled");
 			}
+
+			name = name.trim();
+			password = password.trim();
+			telephone = telephone.trim();
+			email= email.trim();
+			address = address.trim();
 
 			const response = await userService.createUSer({ name, password, telephone, email, address });
 
@@ -33,11 +33,6 @@ class UserController {
 		const id: string = req.params.id;
 		const userService = new UserService();
 
-		name = name.trim();
-		password = password.trim();
-		telephone = telephone.trim();
-		email = email.trim();
-		address = address.trim();
 
 		try {
 
@@ -50,6 +45,13 @@ class UserController {
 			if(name === "" || password === "" || telephone === "" || email === "" || address === ""){
 				throw new Error("All information must be filled");
 			}
+
+			name = name.trim();
+			password = password.trim();
+			telephone = telephone.trim();
+			email = email.trim();
+			address = address.trim();
+
 
 			if(id === "" || id.length !== 36) {
 				throw new Error("Id is obrigatory for operation");

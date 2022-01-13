@@ -25,7 +25,7 @@ export class ProductService {
 			path: process.env.NODE_ENV === "test" ? ".env.test" : ".env"
 		});
 
-		this.connectionName = process.env.NODE_ENV === "test" ? "tests" : "";
+		this.connectionName = process.env.NODE_ENV === "test" ? "tests" : "default";
 		this.connection = Promise.resolve(this.load()) as Promise<Connection>;
 
 		this.bedroom = process.env.BEDROOM as string;

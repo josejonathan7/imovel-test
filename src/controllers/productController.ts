@@ -8,12 +8,6 @@ export class ProductController {
 	async createProduct(req: Request, res: Response) {
 		// eslint-disable-next-line prefer-const
 		let { name, category, price, description, image } = req.body;
-
-		name = name.trim();
-		category = category.trim();
-		description = description.trim();
-		image = image.trim();
-
 		const product = new ProductService();
 
 		try {
@@ -21,6 +15,11 @@ export class ProductController {
 			if(name === "" || category === "" || description === "" || image === "" || price === "") {
 				throw new Error("All information must be filled");
 			}
+
+			name = name.trim();
+			category = category.trim();
+			description = description.trim();
+			image = image.trim();
 
 			if(category !== "cozinha" && category !== "quarto" && category !== "sala" && category !== "banheiro" && category !== "jardim") {
 				throw new Error("Invalid product category");
@@ -41,17 +40,17 @@ export class ProductController {
 		let { name, category, price, description, image } = req.body;
 		const id: string = req.params.id;
 
-		name = name.trim();
-		category = category.trim();
-		description = description.trim();
-		image = image.trim();
-
 		const product = new ProductService();
 
 		try {
 			if(name === "" || category === "" || description === "" || image === "" || price === "") {
 				throw new Error("All information must be filled");
 			}
+
+			name = name.trim();
+			category = category.trim();
+			description = description.trim();
+			image = image.trim();
 
 			if(id === "" || id.length !== 36) {
 				throw new Error("Id is obrigatory for operation");
