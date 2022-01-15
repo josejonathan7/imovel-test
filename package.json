@@ -41,7 +41,6 @@
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "build": "tsc ./src",
     "start": "node dist/server.js",
-    "pretest": "typeorm -c tests migration:run",
     "test": "NODE_ENV=test jest --verbose --runInBand"
   }
 }
