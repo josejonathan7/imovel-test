@@ -14,7 +14,7 @@ module.exports = [
 	},
 	{
 		"type": "postgres",
-		"host": "database",
+		"host": process.env.DB_HOST,
 		//"url": process.env.URL ? process.env.URL : "",
 		"port": +process.env.DB_PORT,
 		"username": process.env.DB_USERNAME,

@@ -1,0 +1,33 @@
+version: '2.0'
+
+networks:
+  imovel-net:
+    driver: bridge
+
+volumes:
+  postgre_vol:
+
+services:
+    postgresDb:
+      image: postgres:13
+      networks:
+        - imovel-net
+      ports:
+        - 5432:5432
+      volumes:
+        - postgre_vol:/data/db
+      environment:
+        POSTGRES_DB: ${DB_NAME}
+        POSTGRES_USER: ${DB_USERNAME}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+    api:
+      image: josejonathan/imovel-test:v1
+      networks:
+        - imovel-net
+      ports:
+        - 3000:3000
+      volumes:
+        - .:/home/imovel
+        - /home/imovel/node_modules
+      command: sh -c "npm run typeorm migration:run && npm run  dev"
